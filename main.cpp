@@ -8,9 +8,13 @@ int main()
     
     BST<int,int> tree;
     
-    tree.empty();
-    tree.insert(1,1);
-    tree.empty();
+    tree.insert(7,49);
+    tree.insert(73,58);
+    tree.insert(30,72);
+    tree.insert(44,78);
+    tree.insert(23,9);
+    tree.remove(72);
+    // not sure if remove works yet
     cout << tree.get(1) << endl;
     return 0;
 }
