@@ -90,9 +90,61 @@ data_type BST<data_type,key_type>:: get(key_type k){
 }
 
 
+template <typename data_type,typename key_type>
+void BST<data_type,key_type>:: transplant(Node<data_type,key_type>* u,Node<data_type,key_type>* v){
+    if (u.p == nullptr){
+        root = v;
+    }
+    elif(u == u.p.left){
+        u.p.left = v;
+    }
+    else{
+        u.p.right = v;
+    }
+    if(v != nullptr){
+        v.p = u.p;
+    }
+}
 // template <typename data_type,typename key_type>
 // void BST<data_type,key_type>:: remove(key_type k){
+//     Node<data_type,key_type>* x = root;
     
+//     while (x != nullptr)
+//     {
+        
+//         if (k == x->key){
+//             if (x.left == nullptr and x.right != nullptr){
+//                 transplant(x,x->right);
+//             if (x.right == nullptr and x.left != nullptr){
+//                 transplant(x,x->left);
+//             if (x.right == nullptr and x.left != nullptr){
+//                 transplant(x,x->left);
+//             }
+//             if (x.right != nullptr and x.left != nullptr){
+//                 y = successor(x);
+
+
+//             }
+
+//             }
+
+
+
+
+
+
+
+//         }
+//         else if (k < x->key)
+//     {
+//         x = x->left;
+    
+//     }
+//     else{
+//         x = x->right;
+//     }
+//         }
+//     }
 // }
 
 

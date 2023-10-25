@@ -31,6 +31,7 @@ class BST
         bool empty(); //
         void insert(data_type data, key_type k); //
         data_type get(key_type key); //
+        void transplant(Node<data_type,key_type>* u,Node<data_type,key_type>* v);
         void remove(key_type key); //
         data_type max_data(); //
         key_type max_key(); //
