@@ -14,7 +14,7 @@ int main()
     tree.insert(44,78);
     tree.insert(23,9);
     tree.remove(72);
-    // not sure if remove works yet
-    cout << tree.get(9) << endl;
+    cout << tree.max_data() << endl;
+    cout << tree.to_string() << endl;
     return 0;
 }

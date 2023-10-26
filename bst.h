@@ -35,6 +35,7 @@ class BST
         Node<data_type,key_type>* min(Node<data_type,key_type>* m);//
         void remove(key_type key); //
         data_type max_data(); //
+        data_type max_data_help(Node<data_type,key_type>* x);
         key_type max_key(); //
         data_type min_data(); //
         key_type min_key(); //
@@ -42,6 +43,7 @@ class BST
         string in_order();
         void trim(key_type low, key_type high);
         string to_string(); //
+        void toStringHelper(Node<data_type,key_type>* node,stringstream& result); //
         //~BST(); //destructor
 };
 

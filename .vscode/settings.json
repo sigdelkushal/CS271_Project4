@@ -6,6 +6,7 @@
         "__node_handle": "cpp",
         "functional": "cpp",
         "unordered_map": "cpp",
-        "ios": "cpp"
+        "ios": "cpp",
+        "iosfwd": "cpp"
     }
 }

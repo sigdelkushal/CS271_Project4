@@ -157,3 +157,80 @@ void BST<data_type,key_type>:: remove(key_type k){
 }
 
 
+template <typename data_type,typename key_type>
+string BST<data_type,key_type>:: to_string()
+/*
+Converts a bst to a string representing its contents.
+
+Parameters: none
+
+Precondition: 
+Postcondition: 
+
+Return value: none
+*/
+{
+    stringstream ss;
+    if (root != nullptr) {  // Check if the tree is empty
+        toStringHelper(root, ss);
+    }
+    return ss.str();
+
+}
+
+template <typename data_type,typename key_type>
+void BST<data_type,key_type>:: toStringHelper(Node<data_type,key_type>* node,stringstream& result)
+/*
+Helps so string recusively
+
+Parameters: none
+
+Precondition: 
+Postcondition: ble
+
+Return value: none
+*/
+{
+
+
+    if (node == nullptr) //ensure the bst has memory; empty string if not
+    {
+        return;
+    }
+
+    toStringHelper(node->left,result);
+
+    result << " " << node->key << " " << endl;
+
+    toStringHelper(node->right,result);
+    
+}
+
+template <typename data_type,typename key_type>
+data_type BST<data_type,key_type>:: max_data(){
+    Node<data_type,key_type>* x = root;
+    if(x == nullptr){
+        return data_type();
+    }
+    return max_data_help(x->right);
+
+
+
+}
+
+template <typename data_type,typename key_type>
+data_type BST<data_type,key_type>:: max_data_help(Node<data_type,key_type>* x){
+    
+    if(x->right == nullptr){
+        return x->data;
+    }
+    return max_data_help(x->right);
+
+
+
+}
+
+
+
+
+
