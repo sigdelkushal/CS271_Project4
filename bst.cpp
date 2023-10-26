@@ -92,10 +92,10 @@ template <typename data_type,typename key_type>
 Node<data_type,key_type>* BST<data_type,key_type>:: min(Node<data_type,key_type>* m){ // returns min node in subtree
     Node<data_type,key_type>* x = m;
     
-    if (x == nullptr or x.left == nullptr){
+    if (x == nullptr or x->left == nullptr){
         return x;
     }
-    return min(x.left);
+    return min(x->left);
 }
 
 
@@ -104,7 +104,7 @@ void BST<data_type,key_type>:: transplant(Node<data_type,key_type>* u,Node<data_
     if (u->p == nullptr){
         root = v;
     }
-    elif(u == u->p->left){
+    else if(u == u->p->left){
         u->p->left = v;
     }
     else{
@@ -119,8 +119,9 @@ void BST<data_type,key_type>:: transplant(Node<data_type,key_type>* u,Node<data_
 template <typename data_type,typename key_type>
 void BST<data_type,key_type>:: remove(key_type k){
     Node<data_type,key_type>* x = root;
-    while (x != nullptr){
+    
         if(x->key == k){
+            
             if(x->left == nullptr){
                 transplant(x,x->right);
             }
@@ -129,7 +130,7 @@ void BST<data_type,key_type>:: remove(key_type k){
                 transplant(x,x->left);
             }
             else{
-               Node<data_type,key_type>* y = min(x.right); //might be wrong function
+               Node<data_type,key_type>* y = min(x->right); //might be wrong function
                 if (y != x->right)
                 {
                     transplant(y,y->right);
@@ -140,10 +141,19 @@ void BST<data_type,key_type>:: remove(key_type k){
                 y->left = x->left;
                 y->left->p = y;
                 
-            
+                cout << x->key << endl;
             }
     } 
+    else if (k < x->key)
+    {
+        x = x->left;
+    
     }
+    else{
+        x = x->right;
+    }
+    
+    
 }
 
 
