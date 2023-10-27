@@ -298,6 +298,45 @@ key_type BST<data_type,key_type>:: min_key_help(Node<data_type,key_type>* x){
 
 }
 
+template <typename data_type,typename key_type>
+string BST<data_type,key_type>:: to_string(){
+
+    stringstream ss;
+    if (root != nullptr) {  // Check if the tree is empty
+        stringHelper(root, ss);
+    }
+    return ss.str();
+
+
+}
+
+template <typename data_type,typename key_type>
+void BST<data_type,key_type>:: stringHelper(Node<data_type,key_type>* node,stringstream& result)
+/*
+Helps so string recusively
+
+Parameters: none
+
+Precondition: 
+Postcondition: ble
+
+Return value: none
+*/
+{
+
+
+    if (node == nullptr) //ensure the bst has memory; empty string if not
+    {
+        return;
+    }
+    
+    result << node->key << " ";
+    stringHelper(node->left,result);
+    stringHelper(node->right,result);
+
+    
+}
+
 
 
 

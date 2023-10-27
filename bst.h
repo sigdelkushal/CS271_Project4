@@ -58,7 +58,7 @@ class BST
         void in_orderHelper(Node<data_type,key_type>* node,stringstream& result);
         void trim(key_type low, key_type high);
         string to_string(); //
-        void toStringHelper(Node<data_type,key_type>* node,stringstream& result); //
+        void stringHelper(Node<data_type,key_type>* node,stringstream& result); //
         //~BST(); //destructor
 };
 

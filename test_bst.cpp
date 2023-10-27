@@ -94,6 +94,32 @@ void test_get() {
         if(val != "one") {
             cout << "Incorrect get result. Expected \"one\" but got : " << val << endl;
         }
+
+        BST<string, string> bst2;
+        bst2.insert("hi","hi");
+        val = bst2.get("hi");
+        if(val != "hi") {
+            cout << "Incorrect get result. Expected \"hi\" but got : " << val << endl;
+        }
+        bst2.insert("bye","bye");
+        val = bst2.get("hi");
+        if(val != "bye") {
+            cout << "Incorrect get result. Expected \"bye\" but got : " << val << endl;
+        }
+        bst2.remove("bye");
+        val = bst2.get("bye");
+        if(val == "bye") {
+            cout << "Incorrect get result. Expected \"none\" but got : " << val << endl;
+        }
+
+        BST<int, int> bst3;
+        bst3.insert(3,40);
+        val = bst3.get(40);
+        if(val == "") {
+            cout << "Incorrect get result. Expected \"none\" but got : " << val << endl;
+        }
+
+
     } catch(exception& e) {
         cerr << "Error in getting data from bst : " << e.what() << endl;
     }
@@ -111,6 +137,15 @@ void test_remove() {
         if(bst_str != "5 2 8 1 3 6 9 4 10") {
             cout << "Incorrect result of removing 7. Expected 5 2 8 1 3 6 9 4 10 but got : " << bst_str << endl;
         }
+
+        BST<int, int> balanced_bst2;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst2.insert(1, vals[i]);
+        }
+        if(bst_str != "5 2 8 1 3 6 9 4 10") {
+            cout << "Incorrect result of removing 7. Expected 5 2 8 1 3 6 9 4 10 but got : " << bst_str << endl;
+        }
+
     } catch(exception& e) {
         cerr << "Error in removing node from bst : " << e.what() << endl;
     }
@@ -127,6 +162,23 @@ void test_max_data() {
         if(max_str != "10 data") {
             cout << "Incorrect result of max_data. Expected \"10 data\" but got : " << max_str << endl;
         }
+
+        
+        BST<int, int> balanced_bst2;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst2.insert(vals[i], vals[i]);
+        }
+        int max_int = balanced_bst2.max_data();
+        if(max_int != 10) {
+            cout << "Incorrect result of max_data. Expected \"10\" but got : " << max_int << endl;
+        }
+        
+
+        
+
+
+
+
     } catch(exception& e) {
         cerr << "Error in determining data of max node in bst : " << e.what() << endl;
     }
@@ -143,6 +195,18 @@ void test_max_key() {
         if(max_k != 10) {
             cout << "Incorrect result of max_key. Expected 10 but got : " << max_k << endl;
         }
+
+        BST<int, int> balanced_bst2;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst2.insert((vals[i]), vals[i]);
+        }
+        int max_k = balanced_bst2.max_key();
+        if(max_k != 10) {
+            cout << "Incorrect result of max_key. Expected 10 but got : " << max_k << endl;
+        }
+
+        
+
     } catch(exception& e) {
         cerr << "Error in determining key of max node in bst : " << e.what() << endl;
     }
@@ -159,6 +223,17 @@ void test_min_data() {
         if(min_str != "1 data") {
             cout << "Incorrect result of min_data. Expected \"1 data\" but got : " << min_str << endl;
         }
+
+        BST<int, int> balanced_bst2;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst2.insert((vals[i]), vals[i]);
+        }
+        int min_int = balanced_bst2.min_data();
+        if(min_int != 1) {
+            cout << "Incorrect result of min_int. Expected \"1\" but got : " << min_int << endl;
+        }
+
+
     } catch(exception& e) {
         cerr << "Error in determining data of min node in bst : " << e.what() << endl;
     }
@@ -175,6 +250,18 @@ void test_min_key() {
         if(min_k != 1) {
             cout << "Incorrect result of min_key. Expected 10 but got : " << min_k << endl;
         }
+
+        BST<int, int> balanced_bst2;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst2.insert((vals[i]), vals[i]);
+        }
+        int min_k = balanced_bst2.min_key();
+        if(min_k != 1) {
+            cout << "Incorrect result of min_key. Expected 10 but got : " << min_k << endl;
+        }
+
+
+
     } catch(exception& e) {
         cerr << "Error in determining key of min node in bst : " << e.what() << endl;
     }
@@ -223,6 +310,9 @@ void test_in_order() {
         if(bst_str != "1 2 3 4 5 6 7 8 9 10") {
             cout << "Incorrect in_order result after inserting keys {5, 2, 7, 1, 3, 4, 6, 9, 8, 10}. Expected 1 2 3 4 5 6 7 8 9 10 but got : " << bst_str << endl;
         }
+        
+
+
     } catch(exception& e) {
         cerr << "Error getting keys in_order from bst : " << e.what() << endl;
     }
