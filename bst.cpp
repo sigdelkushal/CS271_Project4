@@ -140,7 +140,7 @@ void BST<data_type,key_type>:: remove(key_type k){
                 y->left = x->left;
                 y->left->p = y;
                 
-                cout << x->key << endl;
+               // cout << x->key << endl;
             }
     } 
     else if (k < x->key)
@@ -157,7 +157,7 @@ void BST<data_type,key_type>:: remove(key_type k){
 
 
 template <typename data_type,typename key_type>
-string BST<data_type,key_type>:: to_string()
+string BST<data_type,key_type>:: in_order()
 /*
 Converts a bst to a string representing its contents.
 
@@ -171,14 +171,14 @@ Return value: none
 {
     stringstream ss;
     if (root != nullptr) {  // Check if the tree is empty
-        toStringHelper(root, ss);
+        in_orderHelper(root, ss);
     }
     return ss.str();
 
 }
 
 template <typename data_type,typename key_type>
-void BST<data_type,key_type>:: toStringHelper(Node<data_type,key_type>* node,stringstream& result)
+void BST<data_type,key_type>:: in_orderHelper(Node<data_type,key_type>* node,stringstream& result)
 /*
 Helps so string recusively
 
@@ -197,11 +197,11 @@ Return value: none
         return;
     }
 
-    toStringHelper(node->left,result);
+    in_orderHelper(node->left,result);
 
     result << " " << node->key << " " << endl;
 
-    toStringHelper(node->right,result);
+    in_orderHelper(node->right,result);
     
 }
 
@@ -228,7 +228,75 @@ data_type BST<data_type,key_type>:: max_data_help(Node<data_type,key_type>* x){
 
 
 }
+template <typename data_type,typename key_type>
+key_type BST<data_type,key_type>:: max_key(){
+    Node<data_type,key_type>* x = root;
+    if(x == nullptr){
+        return key_type();
+    }
+    return max_key_help(x->right);
 
+
+
+}
+template <typename data_type,typename key_type>
+key_type BST<data_type,key_type>:: max_key_help(Node<data_type,key_type>* x){
+    
+    if(x->right == nullptr){
+        return x->key;
+    }
+    return max_key_help(x->right);
+
+
+
+}
+
+template <typename data_type,typename key_type>
+data_type BST<data_type,key_type>:: min_data(){
+    Node<data_type,key_type>* x = root;
+    if(x == nullptr){
+        return data_type();
+    }
+    return min_data_help(x->left);
+
+
+
+}
+
+template <typename data_type,typename key_type>
+data_type BST<data_type,key_type>:: min_data_help(Node<data_type,key_type>* x){
+    
+    if(x->left == nullptr){
+        return x->data;
+    }
+    return min_data_help(x->left);
+
+
+
+}
+template <typename data_type,typename key_type>
+key_type BST<data_type,key_type>:: min_key(){
+    Node<data_type,key_type>* x = root;
+    if(x == nullptr){
+        return key_type();
+    }
+    return min_key_help(x->left);
+
+
+
+}
+
+template <typename data_type,typename key_type>
+key_type BST<data_type,key_type>:: min_key_help(Node<data_type,key_type>* x){
+    
+    if(x->left == nullptr){
+        return x->key;
+    }
+    return min_key_help(x->left);
+
+
+
+}
 
 
 
