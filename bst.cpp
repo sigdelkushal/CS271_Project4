@@ -1,6 +1,5 @@
 #include <iostream>
 #include <sstream>
-#include <iostream>
 #include "bst.h"
 using namespace std;
 
