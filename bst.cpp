@@ -203,6 +203,11 @@ void BST<data_type,key_type>:: transplant(Node<data_type,key_type>* u,Node<data_
 
 
 template <typename data_type,typename key_type>
+//==================
+//remove
+//pre-conditions: the key k must be valid
+//post-condition: the node with key k is removed from bst
+//==================
 void BST<data_type,key_type>:: remove(key_type k){
     
     if (root == NULL){
@@ -235,6 +240,12 @@ void BST<data_type,key_type>:: remove(key_type k){
 
 
 template <typename data_type,typename key_type>
+//================
+//successor
+//pre-condition: There must exist a initialized Binary Search Tree
+//post-condition: returns a key of type key_type. If a successor exists for the provided key,
+//                a valid key is returned. If no successor, deafult value of keytype() is returned.
+//================
 key_type BST<data_type,key_type>::successor(key_type key){
 
     if (root == NULL){
@@ -263,6 +274,13 @@ key_type BST<data_type,key_type>::successor(key_type key){
 }
 
 template <typename data_type,typename key_type>
+//================
+//recursivetrim and trim
+//Pre-condition : low should be less than or equal to high.
+//Post-condition : The function trims the subtree rooted at the current node x based on
+// the keys in the range [low, high]. trim trims entire BST based on the range [low,high] 
+//
+//================
 Node<data_type,key_type>* BST<data_type,key_type>::recursivetrim(Node<data_type,key_type> * x,key_type low, key_type high){
     if (x == NULL){
         return x;
@@ -308,12 +326,12 @@ Return value: none
 template <typename data_type,typename key_type>
 void BST<data_type,key_type>:: in_orderHelper(Node<data_type,key_type>* node,string &result)
 /*
-Helps so string recusively
+Helps in_order recusively
 
-Parameters: none
+Parameters: node: where the subtree to be sorted is rooted
 
-Precondition: 
-Postcondition: ble
+Precondition: There must be a initialized bst
+Postcondition: returns a string of sorted keys in subtree rooted at node
 
 Return value: none
 */
@@ -336,11 +354,10 @@ Return value: none
 }
 
 template <typename data_type, typename key_type> string BST<data_type, key_type>::to_string() {
-  // pre-condition: Requires a binary search tree with at least one node.
-  /*
-  Parameters:
-  None
-  */
+// 
+// Parameters: NONE
+// pre-condition: there must be a initialized bst. 
+//post-condition: returns a string representation of the nodes in a bst. 
 
   static Node<data_type, key_type> *const DELIMITER = NULL;
   stringstream ss;
