@@ -16,16 +16,16 @@ int main()
     tree.insert(44,78);
     tree.insert(23,9);
     //tree.remove(72);
-    //cout << tree.max_data() << endl;
+    cout << tree.max_data() << endl;
     cout << tree.to_string() << endl;
-    // BST<string,string>* newBst = create_bst<string,string>("binhex.txt");
-    // string bin;
-    // cout << "Enter binary number: ";
-    // cin >> bin;
-    // stringstream in;
-    // in << bin;
-    // convert(newBst,bin);
-    // //cout << newBst->in_order() << endl;
+    BST<string,string>* newBst = create_bst<string,string>("binhex.txt");
+    string bin;
+    cout << "Enter binary number: ";
+    cin >> bin;
+    stringstream in;
+    in << bin;
+    convert(newBst,bin);
+    //cout << newBst->in_order() << endl;
     return 0;
 }
 

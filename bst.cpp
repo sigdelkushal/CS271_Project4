@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <iostream>
+#include <queue>
 #include "bst.h"
 using namespace std;
 
@@ -75,7 +76,7 @@ Node<data_type,key_type> *BST<data_type, key_type>::get_node(key_type k){   //he
 
 
 template <typename data_type,typename key_type>
-void BST<data_type,key_type>:: insert(data_type d, key_type k){
+void BST<data_type,key_type>::insert(data_type d, key_type k){
 
     Node<data_type,key_type>* newNode = new Node<data_type,key_type>(d,k);
     Node<data_type,key_type>* y = nullptr;
@@ -234,72 +235,6 @@ void BST<data_type,key_type>:: remove(key_type k){
 
 
 template <typename data_type,typename key_type>
-string BST<data_type,key_type>::to_string()
-/*
-Converts a bst to a string representing its contents.
-
-Parameters: none
-
-Precondition: 
-Postcondition: 
-
-Return value: none
-*/
-{
-    stringstream ss;
-    if (root != nullptr) {  // Check if the tree is empty
-        toStringHelper(root, ss);
-    }
-    return ss.str();
-
-}
-
-template <typename data_type,typename key_type>
-void BST<data_type,key_type>::toStringHelper(Node<data_type,key_type>* node,stringstream& result)
-/*
-Helps so string recusively
-
-Parameters: none
-
-Precondition: 
-Postcondition: ble
-
-Return value: none
-*/
-{
-
-
-    if (node == nullptr) //ensure the bst has memory; empty string if not
-    {
-        return;
-    }
-
-    toStringHelper(node->left,result);
-
-    result << " " << node->get_key() << " " << endl;
-
-    toStringHelper(node->right,result);
-    
-}
-
-/*
-template <typename data_type,typename key_type>
-Node<data_type,key_type> *BST<data_type,key_type>::treemin(Node<data_type,key_type> *x){
-
-    if (root == NULL){
-        return NULL;
-    }
-
-    Node<data_type,key_type> *current = x;
-    while (current->left != NULL){
-        current = current->left;
-    } 
-
-    return current;
-}
-*/
-
-template <typename data_type,typename key_type>
 key_type BST<data_type,key_type>::successor(key_type key){
 
     if (root == NULL){
@@ -365,16 +300,13 @@ Postcondition:
 Return value: none
 */
 {
-    stringstream ss;
-    if (root != nullptr) {  // Check if the tree is empty
-        in_orderHelper(root, ss);
-    }
-    return ss.str();
-
+    string s;
+    in_orderHelper(root, s);
+    return s.substr(0,s.size()-1);
 }
 
 template <typename data_type,typename key_type>
-void BST<data_type,key_type>:: in_orderHelper(Node<data_type,key_type>* node,stringstream& result)
+void BST<data_type,key_type>:: in_orderHelper(Node<data_type,key_type>* node,string &result)
 /*
 Helps so string recusively
 
@@ -395,8 +327,60 @@ Return value: none
 
     in_orderHelper(node->left,result);
 
-    result << " " << node->get_key() << " " << endl;
+    stringstream ss;
+    ss << node->get_key() << " ";
+    result += ss.str();
 
-    in_orderHelper(node->right,result);
+    in_orderHelper(node->right, result);
     
+}
+
+template <typename data_type, typename key_type> string BST<data_type, key_type>::to_string() {
+  // pre-condition: Requires a binary search tree with at least one node.
+  /*
+  Parameters:
+  None
+  */
+
+  static Node<data_type, key_type> *const DELIMITER = NULL;
+  stringstream ss;
+  string s = ""; 
+
+  if (root == NULL) { // check if bst is empty
+    return s;         
+  }
+
+  queue<Node<data_type, key_type> *> bst_q; // intialize queue of type node pointer
+
+  bst_q.push(root);
+  bst_q.push(DELIMITER);
+
+  while (true) { // while the root is not null
+    Node<data_type, key_type> *curr = bst_q.front();
+
+    bst_q.pop();
+
+    if (curr != DELIMITER) {
+      ss.str("");
+      ss << curr->get_key() << " ";
+      s = s + ss.str(); 
+
+      if (curr->left != NULL) {
+        bst_q.push(curr->left);
+      }
+
+      if (curr->right != NULL) {
+        bst_q.push(curr->right);
+      }
+    }
+ 
+    else {
+      if (bst_q.empty()) {
+        break;
+      }
+      bst_q.push(DELIMITER);
+    }
+  }
+
+  return s.substr(0, s.size() - 1);
 }
