@@ -295,66 +295,68 @@ void test_in_order() {
     }
 }
 
-// void test_trim() {
-//     try {
-//         BST<string,int> bst;
-//         int vals[3] = {1, 0, 2};
-//         for(int i = 0; i < 3; i++) {
-//             bst.insert(to_string(vals[i])+" data", vals[i]);
-//         }
-//         bst.trim(1,2);
-//         string bst_str = bst.to_string();
-//         if(bst_str != "1 2") {
-//             cout << "Incorrect tree after trimming 1 0 2 with low=1, high=2. Expected 1 2 but got : " << bst_str << endl;
-//         }
-//         BST<string, int> bst2;
-//         int vals2[5] = {3, 0, 4, 2, 1};
-//         for(int i = 0; i < 5; i++) {
-//             bst2.insert(to_string(vals2[i])+" data", vals2[i]);
-//         }
-//         bst2.trim(1,3);
-//         bst_str = bst2.to_string();
-//         if(bst_str != "3 2 1") {
-//             cout << "Incorrect tree after trimming 3 0 4 2 1 with low=1, high=3. Expected 3 2 1 but got : " << bst_str << endl;
-//         }
-//     } catch(exception& e) {
-//         cerr << "Error in trimming the bst : " << e.what() << endl;
-//     }
-// }
+void test_trim() {
 
-// void test_binhex(){
-//     try {
-//         BST<string,string>* bst1 = create_bst<string,string>("binhex.txt");
-//         string bin1 = "111010100101";
-//         string expected_hex1 = "EA5";
+    
+    try {
+        BST<string,int> bst;
+        int vals[3] = {1, 0, 2};
+        for(int i = 0; i < 3; i++) {
+            bst.insert(to_string(vals[i])+" data", vals[i]);
+        }
+        bst.trim(1,2);
+        string bst_str = bst.to_string();
+        if(bst_str != "1 2") {
+            cout << "Incorrect tree after trimming 1 0 2 with low=1, high=2. Expected 1 2 but got : " << bst_str << endl;
+        }
+        BST<string, int> bst2;
+        int vals2[5] = {3, 0, 4, 2, 1};
+        for(int i = 0; i < 5; i++) {
+            bst2.insert(to_string(vals2[i])+" data", vals2[i]);
+        }
+        bst2.trim(1,3);
+        bst_str = bst2.to_string();
+        if(bst_str != "3 2 1") {
+            cout << "Incorrect tree after trimming 3 0 4 2 1 with low=1, high=3. Expected 3 2 1 but got : " << bst_str << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error in trimming the bst : " << e.what() << endl;
+    }
+}
 
-//         string hex1 = convert<string,string>(bst1, bin1);
-//         delete bst1;
+void test_binhex(){
+    try {
+        BST<string,string>* bst1 = create_bst<string,string>("binhex.txt");
+        string bin1 = "111010100101";
+        string expected_hex1 = "EA5";
 
-//         if(hex1!=expected_hex1) {
-//             cout << "Incorrect result converting " << bin1 << " to hex. Expected : " << expected_hex1 << ", but got : " << hex1 << endl;
-//         }
+        string hex1 = convert<string,string>(bst1, bin1);
+        delete bst1;
+
+        if(hex1!=expected_hex1) {
+            cout << "Incorrect result converting " << bin1 << " to hex. Expected : " << expected_hex1 << ", but got : " << hex1 << endl;
+        }
        
-//     } catch(exception& e) {
-//         cerr << "Error converting binary to hex : " << e.what() << endl;
-//     }
+    } catch(exception& e) {
+        cerr << "Error converting binary to hex : " << e.what() << endl;
+    }
 
-//     try {
-//         BST<string,string>* bst2 = create_bst<string,string>("binhex.txt");
-//         string bin2 = "110101";
-//         string expected_hex2 = "35";
+    try {
+        BST<string,string>* bst2 = create_bst<string,string>("binhex.txt");
+        string bin2 = "110101";
+        string expected_hex2 = "35";
 
-//         string hex2 = convert<string,string>(bst2, bin2);
-//         delete bst2;
+        string hex2 = convert<string,string>(bst2, bin2);
+        delete bst2;
 
-//         if(hex2!=expected_hex2) {
-//             cout << "Incorrect result converting " << bin2 << " to hex. Expected : " << expected_hex2 << ", but got : " << hex2 << endl;
-//         }
+        if(hex2!=expected_hex2) {
+            cout << "Incorrect result converting " << bin2 << " to hex. Expected : " << expected_hex2 << ", but got : " << hex2 << endl;
+        }
        
-//     } catch(exception& e) {
-//         cerr << "Error converting binary to hex : " << e.what() << endl;
-//     }
-// }
+    } catch(exception& e) {
+        cerr << "Error converting binary to hex : " << e.what() << endl;
+    }
+}
 
 int main() {
     

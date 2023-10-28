@@ -9,6 +9,19 @@ using namespace std;
 
 template <typename data_type,typename key_type>
 BST<data_type,key_type>* create_bst(string fname){
+
+ /*
+Takes file and creates a bst using data from file
+
+
+Parameters:
+string fname
+
+Precondition: valid given file
+Postcondition: BST with data from file
+
+Return value: none
+*/
     BST<data_type,key_type>* newBST = new BST<data_type,key_type>;
 
     string line;
@@ -33,6 +46,20 @@ BST<data_type,key_type>* create_bst(string fname){
 
 template <typename data_type,typename key_type>
 string convert(BST<data_type,key_type>* bst, string bin){
+
+    /*
+Converts binary keys into Hexadecimal values
+
+
+Parameters:
+BST<data_type,key_type>* bst
+string bin
+
+Precondition: BST is valid binary tree, bin is valid binary string
+Postcondition:  converts binary keys into Hexadecimal values
+
+Return value: none
+*/
 
     string ans = "";
     // cout << "Enter binary number";

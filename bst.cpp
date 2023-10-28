@@ -7,12 +7,34 @@ using namespace std;
 
 
 template <typename data_type,typename key_type>
-Node<data_type,key_type>::Node()
-{}
+Node<data_type,key_type>::Node() // node constructor 
+{
+    /*
+Constructor: creates Nodde object no parameters
+
+
+Precondition: none
+Postcondition: new Node object
+
+Return value: none
+*/
+}
 
 template <typename data_type,typename key_type>
 Node<data_type,key_type>::Node(data_type d, key_type k) 
 {
+    /*
+Constructor: creates Node object with data d and key k
+
+Parameters:
+d: data, data type
+k: key, key type
+
+Precondition: none
+Postcondition: new Node object
+
+Return value: none
+*/
     left = nullptr; 
     right = nullptr;
     p = nullptr;
@@ -23,24 +45,70 @@ Node<data_type,key_type>::Node(data_type d, key_type k)
 
 template <typename data_type,typename key_type>
 data_type Node<data_type,key_type>::get_data(){
+    /*
+Gets Node object's template data
+
+Parameters:
+None
+
+Precondition: existing Node object with a data attribute
+Postcondition: returns data of the given node
+
+Return value: none
+*/
     return data;
 }
 
 template <typename data_type,typename key_type>
 key_type Node<data_type,key_type>::get_key(){
+    /*
+Gets Node object's  key.
+
+Parameters: none
+
+Precondition: existing Node object with a key attribute
+Postcondition: same as precondition
+
+Return value: Node object's key_type key
+*/
+
     return key;
 }
 
 
 template <typename data_type,typename key_type>
-BST<data_type,key_type>:: BST() // creates empty tree object.
+BST<data_type,key_type>:: BST()
 {
+
+    /*
+Constructor. Creates a empty BST object
+
+Parameters:
+None
+
+Precondition: none
+Postcondition: new BST object with null root
+
+Return value: none
+*/
     root = nullptr;
 }
 
 
 template <typename data_type,typename key_type>
 bool BST<data_type,key_type>:: empty(){
+      /*
+Indicate whether the binary search tree bst is empty.
+
+Parameters:
+None
+
+Precondition: none
+Postcondition: boolean of true or false depending if BST is empty or not
+
+Return value: bool
+*/
+
     if(root == nullptr){
         return true;
     }
@@ -48,7 +116,7 @@ bool BST<data_type,key_type>:: empty(){
 }
 
 template <typename data_type,typename key_type>
-Node<data_type,key_type> *BST<data_type, key_type>::get_node(key_type k){   //helper function for remove. 
+Node<data_type,key_type> *BST<data_type, key_type>::get_node(key_type k){   //helper function for remove. Gets node with key_type k
     if(root == NULL)
     {
         return NULL;
@@ -78,6 +146,19 @@ Node<data_type,key_type> *BST<data_type, key_type>::get_node(key_type k){   //he
 template <typename data_type,typename key_type>
 void BST<data_type,key_type>::insert(data_type d, key_type k){
 
+    /*
+Inserts Node object with template data and integer key into BST
+
+Parameters:
+data: data_type data
+key: key_type key
+
+Precondition: key and data are valid and not null. Key is not already in BST
+Postcondition: key-data pair is sucessfully inserted into hash table
+
+Return value: none
+*/
+
     Node<data_type,key_type>* newNode = new Node<data_type,key_type>(d,k);
     Node<data_type,key_type>* y = nullptr;
     Node<data_type,key_type>* x = root;
@@ -106,10 +187,24 @@ void BST<data_type,key_type>::insert(data_type d, key_type k){
     else{
         y->right = newNode;
     }
-   // cout << newNode->key << endl;
+
 }
 template <typename data_type,typename key_type>
-data_type BST<data_type,key_type>:: get(key_type k){ // write for case that key is not in bst
+data_type BST<data_type,key_type>:: get(key_type k){ 
+
+     /*
+Return the data associated with key k
+
+Parameters:
+
+k: key_type key
+
+Precondition: key is valid
+Postcondition: returns  the data associated with the key k
+
+Return value: Data associated with the key
+*/
+
     Node<data_type,key_type>* x = root;
     
     while (x != nullptr)
@@ -145,9 +240,16 @@ Node<data_type,key_type>* BST<data_type,key_type>:: min(Node<data_type,key_type>
 template <typename data_type, typename key_type>
 data_type BST<data_type, key_type>::max_data(){
   /*
-  Parameters:
-  None
-  */
+Returns the data associated with the max key in the tree bst
+Parameters:
+None
+
+
+Precondition: none
+Postcondition: returns the data associated with the max key
+
+Return value: Data associated with the MAX key
+*/
   if (root == NULL) {
     return data_type();
   }
@@ -163,6 +265,18 @@ data_type BST<data_type, key_type>::max_data(){
 template <typename data_type, typename key_type>
 key_type BST<data_type,key_type>::max_key(){
 
+    /*
+Returns the key associated with the max key in the tree bst
+Parameters:
+
+
+
+Precondition: none
+Postcondition: returns the key associated with the max key
+
+Return value: Key associated with the MAX key
+*/
+
   if (root == NULL) {
     return key_type();
   }
@@ -175,18 +289,57 @@ key_type BST<data_type,key_type>::max_key(){
 
 template <typename data_type, typename key_type>
 key_type BST<data_type,key_type>::min_key(){
+       /*
+Returns the key associated with the MIN key in the tree bst
+Parameters:
+
+
+
+Precondition: none
+Postcondition: returns the key associated with the max key
+
+Return value: Key associated with the MIN key
+*/
+
     Node<data_type,key_type> *x = min(root);
     return x->get_key();
 }
 
 template <typename data_type, typename key_type>
 data_type BST<data_type,key_type>::min_data(){
+
+       /*
+Returns the data associated with the MIN key in the tree bst
+Parameters:
+
+
+
+Precondition: none
+Postcondition: returns the data associated with the max key
+
+Return value: Data associated with the MIN key
+*/
+
     Node<data_type,key_type> *x = min(root);
     return x->get_data();
 }
 
 template <typename data_type,typename key_type>
 void BST<data_type,key_type>:: transplant(Node<data_type,key_type>* u,Node<data_type,key_type>* v){
+
+
+       /*
+
+Parameters:
+Node<data_type,key_type>* u
+Node<data_type,key_type>* v
+
+Precondition: none
+Postcondition: Subtree rooted a u is replaced with subtree rooted at node v
+
+
+*/
+
     if (u->p == nullptr){
         root = v;
     }
