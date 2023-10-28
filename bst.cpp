@@ -1,10 +1,16 @@
 #include <iostream>
 #include <sstream>
+#include <iostream>
 #include "bst.h"
 using namespace std;
 
+
 template <typename data_type,typename key_type>
-Node<data_type,key_type>:: Node(data_type d, key_type k) // creates empty Node object.
+Node<data_type,key_type>::Node()
+{}
+
+template <typename data_type,typename key_type>
+Node<data_type,key_type>::Node(data_type d, key_type k) 
 {
     left = nullptr; 
     right = nullptr;
@@ -12,6 +18,18 @@ Node<data_type,key_type>:: Node(data_type d, key_type k) // creates empty Node o
     key = k;
     data = d;
 }
+
+
+template <typename data_type,typename key_type>
+data_type Node<data_type,key_type>::get_data(){
+    return data;
+}
+
+template <typename data_type,typename key_type>
+key_type Node<data_type,key_type>::get_key(){
+    return key;
+}
+
 
 template <typename data_type,typename key_type>
 BST<data_type,key_type>:: BST() // creates empty tree object.
@@ -23,14 +41,38 @@ BST<data_type,key_type>:: BST() // creates empty tree object.
 template <typename data_type,typename key_type>
 bool BST<data_type,key_type>:: empty(){
     if(root == nullptr){
-        cout << "true" << endl;
         return true;
-
     }
-    cout << "false" << endl;
     return false;
-
 }
+
+template <typename data_type,typename key_type>
+Node<data_type,key_type> *BST<data_type, key_type>::get_node(key_type k){   //helper function for remove. 
+    if(root == NULL)
+    {
+        return NULL;
+    }
+    Node<data_type,key_type> *current = root;
+    while((current != NULL) & (k != current->get_key())){
+        if (k > current->get_key()){
+            current = current->right;
+        }
+        else{
+            current = current->left;
+        }
+    }
+
+    if (current != NULL){
+        return current;
+    }
+    else{
+        return NULL;
+    }
+}
+
+
+
+
 
 template <typename data_type,typename key_type>
 void BST<data_type,key_type>:: insert(data_type d, key_type k){
@@ -42,7 +84,7 @@ void BST<data_type,key_type>:: insert(data_type d, key_type k){
     while (x != nullptr)
     {
         y = x;
-        if (k < x->key){
+        if (k < x->get_key()){
             x = x->left;
         }
         else{
@@ -55,7 +97,7 @@ void BST<data_type,key_type>:: insert(data_type d, key_type k){
         root = newNode;
 
     }
-    else if (newNode->key < y->key)
+    else if (newNode->get_key() < y->get_key())
     {
         y->left = newNode;
     
@@ -72,10 +114,10 @@ data_type BST<data_type,key_type>:: get(key_type k){ // write for case that key 
     while (x != nullptr)
     {
         
-        if (k == x->key){
-            return x->data;
+        if (k == x->get_key()){
+            return x->get_data();
         }
-        else if (k < x->key)
+        else if (k < x->get_key())
     {
         x = x->left;
     
@@ -87,6 +129,7 @@ data_type BST<data_type,key_type>:: get(key_type k){ // write for case that key 
     }
     return data_type();
 }
+
 template <typename data_type,typename key_type>
 Node<data_type,key_type>* BST<data_type,key_type>:: min(Node<data_type,key_type>* m){ // returns min node in subtree
     Node<data_type,key_type>* x = m;
@@ -97,6 +140,49 @@ Node<data_type,key_type>* BST<data_type,key_type>:: min(Node<data_type,key_type>
     return min(x->left);
 }
 
+
+template <typename data_type, typename key_type>
+data_type BST<data_type, key_type>::max_data(){
+  /*
+  Parameters:
+  None
+  */
+  if (root == NULL) {
+    return data_type();
+  }
+  Node<data_type, key_type> *current = root;
+  while (current->right != NULL) {
+    current = current->right;
+  }
+  return current->get_data(); 
+}
+
+
+
+template <typename data_type, typename key_type>
+key_type BST<data_type,key_type>::max_key(){
+
+  if (root == NULL) {
+    return key_type();
+  }
+  Node<data_type, key_type> *current = root;
+  while (current->right != NULL) {
+    current = current->right;
+  }
+  return current->get_key();    
+} 
+
+template <typename data_type, typename key_type>
+key_type BST<data_type,key_type>::min_key(){
+    Node<data_type,key_type> *x = min(root);
+    return x->get_key();
+}
+
+template <typename data_type, typename key_type>
+data_type BST<data_type,key_type>::min_data(){
+    Node<data_type,key_type> *x = min(root);
+    return x->get_data();
+}
 
 template <typename data_type,typename key_type>
 void BST<data_type,key_type>:: transplant(Node<data_type,key_type>* u,Node<data_type,key_type>* v){
@@ -117,44 +203,154 @@ void BST<data_type,key_type>:: transplant(Node<data_type,key_type>* u,Node<data_
 
 template <typename data_type,typename key_type>
 void BST<data_type,key_type>:: remove(key_type k){
-    Node<data_type,key_type>* x = root;
     
-        if(x->key == k){
-            
-            if(x->left == nullptr){
-                transplant(x,x->right);
-            }
-            else if (x->right == nullptr)
-            {
-                transplant(x,x->left);
-            }
-            else{
-               Node<data_type,key_type>* y = min(x->right); //might be wrong function
-                if (y != x->right)
-                {
-                    transplant(y,y->right);
-                    y->right = x->right;
-                    y->right->p = y;
-                }
-                transplant(x,y);
-                y->left = x->left;
-                y->left->p = y;
-                
-               // cout << x->key << endl;
-            }
-    } 
-    else if (k < x->key)
-    {
-        x = x->left;
-    
+    if (root == NULL){
+        return;
+    }
+
+    Node<data_type,key_type> *x = get_node(k);
+    Node<data_type,key_type> *y = NULL;
+
+    if (x->left == NULL){
+        transplant(x, x->right);
+    }
+    else if (x->right == NULL){
+        transplant(x, x->left);
     }
     else{
-        x = x->right;
+        y = min(x->right); //successor
+
+        if (y->p != x){
+            transplant(y, y->right);
+            y->right = x->right;
+            y->right->p = y;
+        }
+
+        transplant (x,y);
+        y->left = x->left;
+        y->left->p = y; 
     }
-    
+}
+
+
+template <typename data_type,typename key_type>
+string BST<data_type,key_type>::to_string()
+/*
+Converts a bst to a string representing its contents.
+
+Parameters: none
+
+Precondition: 
+Postcondition: 
+
+Return value: none
+*/
+{
+    stringstream ss;
+    if (root != nullptr) {  // Check if the tree is empty
+        toStringHelper(root, ss);
+    }
+    return ss.str();
+
+}
+
+template <typename data_type,typename key_type>
+void BST<data_type,key_type>::toStringHelper(Node<data_type,key_type>* node,stringstream& result)
+/*
+Helps so string recusively
+
+Parameters: none
+
+Precondition: 
+Postcondition: ble
+
+Return value: none
+*/
+{
+
+
+    if (node == nullptr) //ensure the bst has memory; empty string if not
+    {
+        return;
+    }
+
+    toStringHelper(node->left,result);
+
+    result << " " << node->get_key() << " " << endl;
+
+    toStringHelper(node->right,result);
     
 }
 
+/*
+template <typename data_type,typename key_type>
+Node<data_type,key_type> *BST<data_type,key_type>::treemin(Node<data_type,key_type> *x){
+
+    if (root == NULL){
+        return NULL;
+    }
+
+    Node<data_type,key_type> *current = x;
+    while (current->left != NULL){
+        current = current->left;
+    } 
+
+    return current;
+}
+*/
+
+template <typename data_type,typename key_type>
+key_type BST<data_type,key_type>::successor(key_type key){
+
+    if (root == NULL){
+        return key_type();
+    }
+
+    Node<data_type,key_type> *x = get_node(key);
+    Node<data_type,key_type> *y;
+
+    if (x != NULL){
+        if (x->right != NULL){
+            Node<data_type,key_type> *z = min(x->right);
+            return z->get_key();
+        }
+        y = x->p;
+        while ((y != NULL) && (x == y->right)){
+            x = y;
+            y = y->p;
+        }
+        if (y != NULL){
+            return y->get_key();
+        }
+    }
+
+    return key_type();
+}
+
+template <typename data_type,typename key_type>
+Node<data_type,key_type>* BST<data_type,key_type>::recursivetrim(Node<data_type,key_type> * x,key_type low, key_type high){
+    if (x == NULL){
+        return x;
+    }
+    x->left = recursivetrim(x->left, low, high);
+    x->right = recursivetrim(x->right, low,high);
+
+  if (x->get_key() < low || x->get_key() > high) {
+    if (x->left == NULL) {
+      return x->right;
+    }
+    if (x->right == NULL) {
+      return x->left;
+    }
+  }
+
+  return x;
+}
+
+template <typename data_type,typename key_type>
+void BST<data_type,key_type>::trim(key_type low, key_type high){
+    root = recursivetrim(root,low,high);
+}
 
 template <typename data_type,typename key_type>
 string BST<data_type,key_type>:: in_order()
@@ -199,144 +395,8 @@ Return value: none
 
     in_orderHelper(node->left,result);
 
-    result << " " << node->key << " " << endl;
+    result << " " << node->get_key() << " " << endl;
 
     in_orderHelper(node->right,result);
     
 }
-
-template <typename data_type,typename key_type>
-data_type BST<data_type,key_type>:: max_data(){
-    Node<data_type,key_type>* x = root;
-    if(x == nullptr){
-        return data_type();
-    }
-    return max_data_help(x->right);
-
-
-
-}
-
-template <typename data_type,typename key_type>
-data_type BST<data_type,key_type>:: max_data_help(Node<data_type,key_type>* x){
-    
-    if(x->right == nullptr){
-        return x->data;
-    }
-    return max_data_help(x->right);
-
-
-
-}
-template <typename data_type,typename key_type>
-key_type BST<data_type,key_type>:: max_key(){
-    Node<data_type,key_type>* x = root;
-    if(x == nullptr){
-        return key_type();
-    }
-    return max_key_help(x->right);
-
-
-
-}
-template <typename data_type,typename key_type>
-key_type BST<data_type,key_type>:: max_key_help(Node<data_type,key_type>* x){
-    
-    if(x->right == nullptr){
-        return x->key;
-    }
-    return max_key_help(x->right);
-
-
-
-}
-
-template <typename data_type,typename key_type>
-data_type BST<data_type,key_type>:: min_data(){
-    Node<data_type,key_type>* x = root;
-    if(x == nullptr){
-        return data_type();
-    }
-    return min_data_help(x->left);
-
-
-
-}
-
-template <typename data_type,typename key_type>
-data_type BST<data_type,key_type>:: min_data_help(Node<data_type,key_type>* x){
-    
-    if(x->left == nullptr){
-        return x->data;
-    }
-    return min_data_help(x->left);
-
-
-
-}
-template <typename data_type,typename key_type>
-key_type BST<data_type,key_type>:: min_key(){
-    Node<data_type,key_type>* x = root;
-    if(x == nullptr){
-        return key_type();
-    }
-    return min_key_help(x->left);
-
-
-
-}
-
-template <typename data_type,typename key_type>
-key_type BST<data_type,key_type>:: min_key_help(Node<data_type,key_type>* x){
-    
-    if(x->left == nullptr){
-        return x->key;
-    }
-    return min_key_help(x->left);
-
-
-
-}
-
-template <typename data_type,typename key_type>
-string BST<data_type,key_type>:: to_string(){
-
-    stringstream ss;
-    if (root != nullptr) {  // Check if the tree is empty
-        stringHelper(root, ss);
-    }
-    return ss.str();
-
-
-}
-
-template <typename data_type,typename key_type>
-void BST<data_type,key_type>:: stringHelper(Node<data_type,key_type>* node,stringstream& result)
-/*
-Helps so string recusively
-
-Parameters: none
-
-Precondition: 
-Postcondition: ble
-
-Return value: none
-*/
-{
-
-
-    if (node == nullptr) //ensure the bst has memory; empty string if not
-    {
-        return;
-    }
-    
-    result << node->key << " ";
-    stringHelper(node->left,result);
-    stringHelper(node->right,result);
-
-    
-}
-
-
-
-
