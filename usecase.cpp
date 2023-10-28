@@ -53,6 +53,6 @@ string convert(BST<data_type,key_type>* bst, string bin){
         ans = ans + result;
     }
     
-    cout << ans << endl;
+    cout << "Hexadecimal representation of "<< bin << " is "<< ans << endl;
     return ans;
 }

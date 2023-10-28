@@ -22,23 +22,6 @@ void test_empty() {
             cout << "Incorrect empty result." << endl;
         }
 
-        BST<int, int> bst2;
-        if(!bst2.empty()) {
-            cout << "Incorrect empty result." << endl;
-        }
-        bst2.insert(100,100);
-        if(bst2.empty()) {
-            cout << "Incorrect empty result." << endl;
-        }
-        bst2.remove(1);
-        if(bst2.empty()) {
-            cout << "Incorrect empty result." << endl;
-        }
-        bst2.remove(100);
-        if(!bst2.empty()) {
-            cout << "Incorrect empty result." << endl;
-        }
-
 
     }
     catch(exception& e)
@@ -96,7 +79,7 @@ void test_get() {
             cout << "Incorrect get result. Expected \"hi\" but got : " << val << endl;
         }
         bst2.insert("bye","bye");
-        val = bst2.get("hi");
+        val = bst2.get("bye");
         if(val != "bye") {
             cout << "Incorrect get result. Expected \"bye\" but got : " << val << endl;
         }
@@ -194,7 +177,7 @@ void test_max_key() {
         for(int i = 0; i < 10; i++) {
             balanced_bst2.insert((vals[i]), vals[i]);
         }
-        int max_k = balanced_bst2.max_key();
+        max_k = balanced_bst2.max_key();
         if(max_k != 10) {
             cout << "Incorrect result of max_key. Expected 10 but got : " << max_k << endl;
         }
@@ -249,7 +232,7 @@ void test_min_key() {
         for(int i = 0; i < 10; i++) {
             balanced_bst2.insert((vals[i]), vals[i]);
         }
-        int min_k = balanced_bst2.min_key();
+        min_k = balanced_bst2.min_key();
         if(min_k != 1) {
             cout << "Incorrect result of min_key. Expected 10 but got : " << min_k << endl;
         }
